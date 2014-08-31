@@ -44,6 +44,11 @@ defmodule MyList do
   def swap([]), do: []
   def swap([hd1, hd2 | tail]), do: [hd2, hd1 | swap(tail)]
   def swap([_]), do: raise "Can't swap a list with an odd number of elements"
+
+  def span(from, to) when from > to, do: []
+  def span(from, to) when from <= to do
+    [from | span(from+1, to)]
+  end
 end
 
 IO.inspect MyList.len([])
@@ -65,6 +70,9 @@ IO.inspect MyList.max([1,2,7,3,4])
 IO.inspect MyList.caesar('ryvkve', 13)
 IO.inspect MyList.swap([])
 IO.inspect MyList.swap([1,2,3,4])
+IO.inspect MyList.span(1, 10)
+IO.inspect MyList.span(1, 1)
+IO.inspect MyList.span(1, 0)
 
 defmodule WeatherHistory do
   def for_location_27([]), do: []
