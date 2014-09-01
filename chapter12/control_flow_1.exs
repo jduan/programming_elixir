@@ -10,14 +10,25 @@ defmodule Test do
 end
 
 defmodule Play do
+  # def fizzbuzz(n) when n > 0 do
+  #   for x <- 1..n do
+  #     case {rem(x, 3), rem(x, 5)} do
+  #       {0, 0}-> "fizzbuzz"
+  #       {0, _}-> "fizz"
+  #       {_, 0}-> "buzz"
+  #       _ -> x
+  #     end
+  #   end
+  # end
+
   def fizzbuzz(n) when n > 0 do
     for x <- 1..n do
-      cond do
-        rem(x, 3) == 0 and rem(x, 5) == 0 -> "fizzbuzz"
-        rem(x, 3) == 0 -> "fizz"
-        rem(x, 5) == 0 -> "buzz"
-        true -> x
-      end
+      do_fizzbuzz(rem(x,3), rem(x,5), x)
     end
   end
+
+  defp do_fizzbuzz(0, 0, _), do: "fizzbuzz"
+  defp do_fizzbuzz(0, _, _), do: "fizz"
+  defp do_fizzbuzz(_, 0, _), do: "buzz"
+  defp do_fizzbuzz(_, _, n), do: n
 end
