@@ -59,4 +59,35 @@ defmodule MyTest do
     assert Enum.join(lst) == "12345"
     assert Enum.join(lst, ",") == "1,2,3,4,5"
   end
+
+  test "predicate" do
+    refute Enum.all?(lst, &(&1 < 4))
+    assert Enum.any?(lst, &(&1 < 4))
+    assert Enum.member?(lst, 4)
+    refute Enum.empty?(lst)
+  end
+
+  test "merge collections" do
+    assert Enum.zip(lst, [:a, :b, :c]) == [{1, :a}, {2, :b}, {3, :c}]
+    assert Enum.with_index(["once", "upon", "a", "time"]) == [{"once", 0},
+      {"upon", 1}, {"a", 2}, {"time", 3}]
+  end
+
+  test "fold elements into a single value" do
+    assert Enum.reduce(1..100, &(&1 + &2)) == 5050
+    assert Enum.reduce(["now", "is", "the", "time"], fn word, longest ->
+      if String.length(word) > String.length(longest) do
+        word
+      else
+        longest
+      end
+    end) == "time"
+    assert Enum.reduce(["now", "is", "the", "time"], 0, fn word, longest ->
+      if String.length(word) > longest do
+        String.length(word)
+      else
+        longest
+      end
+    end) == 4
+  end
 end
