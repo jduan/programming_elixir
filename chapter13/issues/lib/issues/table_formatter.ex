@@ -1,7 +1,7 @@
 defmodule Issues.TableFormatter do
   def print_table_for_columns(rows, headers) do
     columns = split_into_columns(rows, headers)
-    widths = widths_of(columns)
+    widths = widths_of(headers, columns)
     format = format_for(widths)
 
     puts_one_line_in_columns(format, headers)
@@ -20,11 +20,13 @@ defmodule Issues.TableFormatter do
   defp printable(str) when is_binary(str), do: str
   defp printable(str), do: to_string(str)
 
-  def widths_of(columns) do
-    for column <- columns do
-      column |>
-      Enum.map(&String.length/1) |>
-      Enum.max
+  def widths_of(headers, columns) do
+    headers_and_columns = List.zip([headers, columns])
+    |> Enum.map(fn {header, column} -> [to_string(header) | column] end)
+    for column <- headers_and_columns do
+      column
+      |> Enum.map(&String.length/1)
+      |> Enum.max
     end
   end
 

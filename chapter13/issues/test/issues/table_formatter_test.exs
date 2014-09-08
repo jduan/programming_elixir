@@ -31,7 +31,7 @@ defmodule TableFormatterTest do
 
   test "column_widths" do
     columns = split_with_three_columns
-    widths = TF.widths_of(columns)
+    widths = TF.widths_of(headers, columns)
     assert widths == [5, 6, 7]
   end
 
