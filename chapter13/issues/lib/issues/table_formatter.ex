@@ -12,10 +12,13 @@ defmodule Issues.TableFormatter do
   def split_into_columns(rows, headers) do
     for header <- headers do
       for row <- rows do
-        row[header]
+        printable row[header]
       end
     end
   end
+
+  defp printable(str) when is_binary(str), do: str
+  defp printable(str), do: to_string(str)
 
   def widths_of(columns) do
     for column <- columns do
