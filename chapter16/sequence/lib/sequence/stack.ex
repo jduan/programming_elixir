@@ -15,6 +15,10 @@ defmodule Sequence.Stack do
     GenServer.cast(__MODULE__, {:push, element})
   end
 
+  def terminate(reason, state) do
+    IO.puts "reason: #{inspect reason}, state: #{inspect state}"
+  end
+
   # internal API #
 
   def handle_call(:pop, _from, [head|tail]) do
