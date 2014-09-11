@@ -4,4 +4,8 @@ defmodule Sequence.Stack do
   def handle_call(:pop, _from, [head|tail]) do
     {:reply, head, tail}
   end
+
+  def handle_cast({:push, item}, lst) do
+    {:noreply, [item|lst]}
+  end
 end
